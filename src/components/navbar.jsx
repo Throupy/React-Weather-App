@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import WeatherCard from './weatherCard'
 
 class NavBar extends Component {
   state = {}

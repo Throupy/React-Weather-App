@@ -4,7 +4,7 @@ import { LinearGradient } from '@vx/gradient';
 import { scaleTime, scaleLinear } from '@vx/scale';
 import { curveMonotoneX } from '@vx/curve';
 import { Group } from '@vx/group';
-import {extent, max} from 'd3-array';
+import { extent, max } from 'd3-array';
 import { AreaClosed  } from '@vx/shape';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
@@ -25,6 +25,7 @@ class WeatherCard extends Component {
     // Calculate minimum and maximum temperatures.
     this.setState({ maxTemp: Math.max.apply(Math, this.props.rainfallForecast.map(function(o) { return o.value; })),
                     minTemp: Math.min.apply(Math, this.props.rainfallForecast.map(function(o) { return o.value; }))})
+    console.log(this.props.rainfallForecast)
   }
 
 
@@ -69,7 +70,6 @@ class WeatherCard extends Component {
       range: [yMax, 0],
       domain: [0, max(data, y)],
     });
-
     const chart = (
       <svg width={width} height={height}>
         <Group top={margin.top} left={margin.left}>
@@ -114,10 +114,10 @@ class WeatherCard extends Component {
     return (
       <React.Fragment>
         <div className="col-3 card mb-2 mr-2 mt-2" style={{width: '18rem'}}>
-            <img className="card-img-top" style={this.styles} src={this.getWeatherImage(this.props.weather)} />
+            <img className="card-img-top" alt="" style={this.styles} src={this.getWeatherImage(this.props.weather)} />
             <div className="card-body">
                 <h5 className="card-title">{this.props.name}</h5>
-                <p className="card-text">Conditions: <b>{this.props.weather.charAt(0).toUpperCase() + this.props.weather.slice(1)}</b></p>
+                <p className="card-text">Conditions: <b>{this.props.weather}</b></p>
                 <p className="card-text">Temperature: <b>{this.state.maxTemp}°C</b>  {this.state.minTemp}°C</p>
                 <p className="card-text">Wind Speeds: <b>{this.props.wind}mph</b></p>
             </div>

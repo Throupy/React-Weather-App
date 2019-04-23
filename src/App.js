@@ -5,10 +5,6 @@ import './App.css';
 
 class App extends Component {
   state = {}
-  
-  constructor() {
-    super();
-  }
 
   render() {
     return (

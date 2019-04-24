@@ -23,9 +23,8 @@ class WeatherCard extends Component {
 
   componentDidMount() {
     // Calculate minimum and maximum temperatures.
-    this.setState({ maxTemp: Math.max.apply(Math, this.props.rainfallForecast.map(function(o) { return o.value; })),
-                    minTemp: Math.min.apply(Math, this.props.rainfallForecast.map(function(o) { return o.value; }))})
-    console.log(this.props.rainfallForecast)
+    this.setState({ maxTemp: Math.max.apply(Math, this.props.temperatureForecase.map(function(o) { return o.value; })),
+                    minTemp: Math.min.apply(Math, this.props.temperatureForecase.map(function(o) { return o.value; }))})
   }
 
 
@@ -47,7 +46,7 @@ class WeatherCard extends Component {
   }
 
   createVisualisation() {
-    const data = this.props.rainfallForecast;
+    const data = this.props.temperatureForecase;
     const width = 450;
     const height = 400;
     const margin = {
@@ -87,7 +86,7 @@ class WeatherCard extends Component {
                 label={'Time'}
                 stroke={'#1b1a1e'}
                 tickTextFill={'#1b1a1e'}
-                numTicks={this.props.rainfallForecast.length}
+                numTicks={this.props.temperatureForecase.length}
               />
             <LinearGradient
               from='#d14d36'
@@ -117,7 +116,7 @@ class WeatherCard extends Component {
             <img className="card-img-top" alt="" style={this.styles} src={this.getWeatherImage(this.props.weather)} />
             <div className="card-body">
                 <h5 className="card-title">{this.props.name}</h5>
-                <p className="card-text">Conditions: <b>{this.props.weather}</b></p>
+                <p className="card-text">Conditions: <b>{this.props.conditions}</b></p>
                 <p className="card-text">Temperature: <b>{this.state.maxTemp}°C</b>  {this.state.minTemp}°C</p>
                 <p className="card-text">Wind Speeds: <b>{this.props.wind}mph</b></p>
             </div>

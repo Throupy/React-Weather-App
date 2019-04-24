@@ -65,15 +65,25 @@ class WeatherCards extends Component {
         .then(json => {
             this.setState({ data:json })
             var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-            let z = [{id: 7, name: "Sunday", wind: 2, weather: "clouds"}] //Cards
+            let z = [] //Cards
             let x = [] // Rainfall forecast
-            for (let index = 0; index < 8; index++) {
-                var d = new Date(this.state.data.list[index].dt * 1000)
-                let y = {time:d.toISOString(), value:Math.round(this.state.data.list[index].main.temp)}
-                x.push(y)
+            let y = {} // "Event" Object
+            let c = 0
+            for (let count = 0; count < 5; count++) {
+                let x = []
+                z.push({id: count, name: null, wind: null, weather: null, conditions: null})
+                for (let index = 0; index < 8; index++) {
+                    c++
+                    var d = new Date(this.state.data.list[c-1].dt * 1000)
+                    y = {time:d.toISOString(), value:Math.round(this.state.data.list[c-1].main.temp)}
+                    x.push(y)
+                }   
+                z[count].name = days[d.getDay()]
+                z[count].wind = Math.round(this.state.data.list[c-1].wind.speed)
+                z[count].weather = this.state.data.list[c-1].weather[0].icon
+                z[count].conditions = this.state.data.list[c-1].weather[0].description
+                z[count]['temperatureForecase'] = x
             }
-            z[0].name = days[d.getDay()]
-            z[0]['rainfallForecast'] = x
             this.setState({ newCards: z })
             
         });
@@ -88,7 +98,7 @@ class WeatherCards extends Component {
             <React.Fragment>
             <div className="row">
                 { this.state.newCards.map(card => (
-                    <WeatherCard key={card.id} name={card.name} wind={card.wind} weather={card.weather} rainfallForecast={card.rainfallForecast}/>
+                    <WeatherCard key={card.id} name={card.name} wind={card.wind} weather={card.weather} conditions={card.conditions} temperatureForecase={card.temperatureForecase}/>
                 ))}
             </div>
             </React.Fragment>

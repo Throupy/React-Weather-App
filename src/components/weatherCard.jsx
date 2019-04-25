@@ -23,8 +23,8 @@ class WeatherCard extends Component {
 
   componentDidMount() {
     // Calculate minimum and maximum temperatures.
-    this.setState({ maxTemp: Math.max.apply(Math, this.props.temperatureForecase.map(function(o) { return o.value; })),
-                    minTemp: Math.min.apply(Math, this.props.temperatureForecase.map(function(o) { return o.value; }))})
+    this.setState({ maxTemp: Math.max.apply(Math, this.props.temperatureForecast.map(function(o) { return o.value; })),
+                    minTemp: Math.min.apply(Math, this.props.temperatureForecast.map(function(o) { return o.value; }))})
   }
 
 
@@ -46,7 +46,7 @@ class WeatherCard extends Component {
   }
 
   createVisualisation() {
-    const data = this.props.temperatureForecase;
+    const data = this.props.temperatureForecast;
     const width = 450;
     const height = 400;
     const margin = {
@@ -86,7 +86,7 @@ class WeatherCard extends Component {
                 label={'Time'}
                 stroke={'#1b1a1e'}
                 tickTextFill={'#1b1a1e'}
-                numTicks={this.props.temperatureForecase.length}
+                numTicks={this.props.temperatureForecast.length}
               />
             <LinearGradient
               from='#d14d36'

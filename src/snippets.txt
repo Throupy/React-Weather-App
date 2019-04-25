@@ -52,3 +52,37 @@
         ],
         response: null
     };
+
+
+
+
+    getData() {
+        fetch("http://api.openweathermap.org/data/2.5/forecast?units=metric&id=2633563&appid=3d786732e9e4f1b7ea30d895eb7ed5db", {method: 'GET'})
+        .then(response => response.json())
+        .then(json => {
+            this.setState({ data:json })
+            console.log(this.state.data)
+            var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+            let z = [] //Cards
+            let y = {} // "Event" Object
+            let c = 0
+            for (let count = 0; count < 5; count++) {
+                let x = []
+                z.push({id: count, name: null, wind: null, weather: null, conditions: null})
+                for (let index = 0; index < this.state.data.list.length / 5; index++) {
+                    c++
+                    var d = new Date(this.state.data.list[c-1].dt * 1000)
+                    y = {time:d.toISOString(), value:Math.round(this.state.data.list[c-1].main.temp)}
+                    x.push(y)
+                }   
+                z[count].name = days[d.getDay()]
+                z[count].wind = Math.round(this.state.data.list[c-1].wind.speed)
+                z[count].weather = this.state.data.list[c-1].weather[0].icon
+                z[count].conditions = this.state.data.list[c-1].weather[0].description
+                z[count]['temperatureForecase'] = x
+                console.log(z)
+            }
+            this.setState({ newCards: z })
+            
+        });
+    }
